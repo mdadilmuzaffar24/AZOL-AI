@@ -1,0 +1,46 @@
+# ==========================================
+# AZOL AI V1.0 — GITIGNORE
+# ==========================================
+
+# 1. Secrets & Environment Variables (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# 2. Python Virtual Environments & Bytecode Cache
+venv/
+.venv/
+backend/venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# 3. Heavy Local AI Weights, FAISS Indices & Uploads (Ignore ONLY root backend folders, NOT app/models)
+/faiss_long_term_memory/
+/local_faiss_index/
+/models/
+/uploads/
+/vector_store/
+/backend/faiss_long_term_memory/
+/backend/local_faiss_index/
+/backend/models/
+/backend/uploads/
+/backend/vector_store/
+!backend/app/models/
+!app/models/
+
+# 4. Node / Frontend Build
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# 5. IDE & OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
