@@ -182,7 +182,7 @@ def send_transactional_email(to_email: str, subject: str, code: str, purpose: st
 
     html_body = f"""
     <div style="font-family: Inter, Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px; background: #131418; color: #f1f5f9; border-radius: 16px; border: 1px solid #334155;">
-      <h2 style="margin-top: 0; color: #ffffff;">AZOL AI ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Enterprise AI OS</h2>
+      <h2 style="margin-top: 0; color: #ffffff;">AZOL AI ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Enterprise AI OS</h2>
       <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">
         Use the following single-use 6-digit security code to complete your <strong>{purpose}</strong> request. This code expires in 15 minutes.
       </p>
@@ -225,7 +225,7 @@ import socket
             print(f"[AZOL SMTP ERROR] Failed to send email via SMTP: {e}")
 
     print("\n" + "=" * 62)
-    print(f" ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â AZOL AI SECURITY DISPATCH ({purpose.upper()})")
+    print(f" ÃƒÆ’Ã‚Â°Ãƒâ€¦Ã‚Â¸ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒâ€šÃ‚Â AZOL AI SECURITY DISPATCH ({purpose.upper()})")
     print(f" Recipient : {to_email}")
     print(f" Code      : {code}  (Single-use, expires in 15 minutes)")
     print("=" * 62 + "\n")
@@ -369,7 +369,7 @@ async def verify_email(
             await db.commit()
             raise HTTPException(
                 status_code=429,
-                detail="Too many incorrect attempts. This code has been invalidatedÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Âplease click 'Resend verification email'."
+                detail="Too many incorrect attempts. This code has been invalidatedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Âplease click 'Resend verification email'."
             )
         await db.execute(
             text("UPDATE auth_security_tokens SET otp_attempts = :att WHERE email = :email"),
@@ -673,7 +673,7 @@ async def reset_password(
                 {"email": email}
             )
             await db.commit()
-            raise HTTPException(status_code=429, detail="Too many incorrect attempts. Recovery code invalidatedÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Âplease request a new one.")
+            raise HTTPException(status_code=429, detail="Too many incorrect attempts. Recovery code invalidatedÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Âplease request a new one.")
         await db.execute(
             text("UPDATE auth_security_tokens SET otp_attempts = :att WHERE email = :email"),
             {"att": new_attempts, "email": email}
