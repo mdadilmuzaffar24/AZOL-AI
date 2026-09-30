@@ -1,3 +1,4 @@
+﻿import os
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -7,29 +8,33 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Enterprise AI OS"
     VERSION: str = "0.1.0"
     API_V1_STR: str = "/api/v1"
-    
-    # Security Settings 
+
+    # Security Settings
     SECRET_KEY: str = "super-secret-enterprise-key-change-in-production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7
-    
+
     # AI Settings (UPDATED FOR GROQ)
-    GROQ_API_KEY: str = "" 
-    
+    GROQ_API_KEY: str = ""
+
     # Database Settings
     POSTGRES_USER: str = "admin"
     POSTGRES_PASSWORD: str = "admin_password"
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "emaios_db"
-    
-    # MinIO / Data Lake Settings 
+
+    # MinIO / Data Lake Settings
     MINIO_ENDPOINT: str = "http://localhost:9000"
     MINIO_ACCESS_KEY: str = "admin"
     MINIO_SECRET_KEY: str = "admin_password"
     MINIO_BUCKET_NAME: str = "emaios-documents"
-    
+
     @property
     def DATABASE_URL(self) -> str:
+        env_url = os.getenv("DATABASE_URL", "").strip()
+        # Use cloud DATABASE_URL (Neon) when deployed; fall back to local settings on localhost
+        if env_url and "127.0.0.1" not in env_url and "localhost" not in env_url:
+            return env_url
         return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
 
 settings = Settings()
