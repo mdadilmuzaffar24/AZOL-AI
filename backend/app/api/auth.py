@@ -182,7 +182,7 @@ def send_transactional_email(to_email: str, subject: str, code: str, purpose: st
 
     html_body = f"""
     <div style="font-family: Inter, Arial, sans-serif; max-width: 520px; margin: 0 auto; padding: 32px; background: #131418; color: #f1f5f9; border-radius: 16px; border: 1px solid #334155;">
-      <h2 style="margin-top: 0; color: #ffffff;">AZOL AI â€” Enterprise AI OS</h2>
+      <h2 style="margin-top: 0; color: #ffffff;">AZOL AI ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Enterprise AI OS</h2>
       <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">
         Use the following single-use 6-digit security code to complete your <strong>{purpose}</strong> request. This code expires in 15 minutes.
       </p>
@@ -204,15 +204,16 @@ def send_transactional_email(to_email: str, subject: str, code: str, purpose: st
             msg.set_content(f"Your AZOL AI {purpose} code is: {code} (Single-use, valid for 15 minutes).")
             msg.add_alternative(html_body, subtype="html")
 
-            import socket
-# Force IPv4 for Render SMTP networking compatibility
-_old_getaddrinfo = socket.getaddrinfo
-def _force_ipv4_getaddrinfo(*args, **kwargs):
-    res = _old_getaddrinfo(*args, **kwargs)
-    return [r for r in res if r[0] == socket.AF_INET]
-socket.getaddrinfo = _force_ipv4_getaddrinfo
+            
 
-with smtplib.SMTP(smtp_host, smtp_port, timeout=12) as server:
+import socket
+    # Force IPv4 socket resolution for Render cloud network compatibility
+    orig_getaddrinfo = socket.getaddrinfo
+    socket.getaddrinfo = lambda *args, **kwargs: [r for r in orig_getaddrinfo(*args, **kwargs) if r[0] == socket.AF_INET]
+    try:
+        with smtplib.SMTP(smtp_host, smtp_port, timeout=12) as server:
+    finally:
+        socket.getaddrinfo = orig_getaddrinfo
                 server.ehlo()
                 server.starttls()
                 server.ehlo()
@@ -224,7 +225,7 @@ with smtplib.SMTP(smtp_host, smtp_port, timeout=12) as server:
             print(f"[AZOL SMTP ERROR] Failed to send email via SMTP: {e}")
 
     print("\n" + "=" * 62)
-    print(f" ðŸ” AZOL AI SECURITY DISPATCH ({purpose.upper()})")
+    print(f" ÃƒÂ°Ã…Â¸Ã¢â‚¬ÂÃ‚Â AZOL AI SECURITY DISPATCH ({purpose.upper()})")
     print(f" Recipient : {to_email}")
     print(f" Code      : {code}  (Single-use, expires in 15 minutes)")
     print("=" * 62 + "\n")
@@ -368,7 +369,7 @@ async def verify_email(
             await db.commit()
             raise HTTPException(
                 status_code=429,
-                detail="Too many incorrect attempts. This code has been invalidatedâ€”please click 'Resend verification email'."
+                detail="Too many incorrect attempts. This code has been invalidatedÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Âplease click 'Resend verification email'."
             )
         await db.execute(
             text("UPDATE auth_security_tokens SET otp_attempts = :att WHERE email = :email"),
@@ -672,7 +673,7 @@ async def reset_password(
                 {"email": email}
             )
             await db.commit()
-            raise HTTPException(status_code=429, detail="Too many incorrect attempts. Recovery code invalidatedâ€”please request a new one.")
+            raise HTTPException(status_code=429, detail="Too many incorrect attempts. Recovery code invalidatedÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Âplease request a new one.")
         await db.execute(
             text("UPDATE auth_security_tokens SET otp_attempts = :att WHERE email = :email"),
             {"att": new_attempts, "email": email}
