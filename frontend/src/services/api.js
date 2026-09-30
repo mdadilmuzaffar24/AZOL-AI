@@ -1,7 +1,7 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 
 // Assuming your FastAPI runs on localhost:8000
-const API_URL = 'http://localhost:8000/api/v1/orchestrator';
+const API_URL = (import.meta.env.DEV ? 'http://localhost:8000/api/v1/orchestrator' : '/api/v1/orchestrator');
 
 // We will need to pass the JWT token for authentication
 const getAuthHeaders = () => {
