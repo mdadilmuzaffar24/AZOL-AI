@@ -10,10 +10,31 @@
 [![Orchestration](https://img.shields.io/badge/LangGraph-StateGraph-7C6CFF?style=for-the-badge)](#)
 [![Memory](https://img.shields.io/badge/FAISS_%2B_PostgreSQL-3--Tier_Memory-61D8FF?style=for-the-badge&logo=postgresql&logoColor=white)](#)
 [![Frontend](https://img.shields.io/badge/React_18-Tailwind_%2B_Framer-0E1118?style=for-the-badge&logo=react&logoColor=61D8FF)](#)
+[**🎥 Watch Full 1080p60 Walkthrough (YouTube)**](https://youtu.be/0UF4JgnmhEs) · [**☁️ High-Bitrate Master (Google Drive)**](https://drive.google.com/file/d/12CL2u1S50D5kK0wzWIZKmjaskMOYw788/view?usp=sharing) · [**🌐 Creator Portfolio**](https://md-adil-muzaffar-portfolia.lovable.app)
 
 </div>
 
 ---
+## 🎥 Live Product Walkthrough
+
+<div align="center">
+
+<!-- 👇 DRAG AND DROP YOUR 37-SECOND PREVIEW MP4 FILE ON THE LINE BELOW 👇 -->
+
+
+https://github.com/user-attachments/assets/dd9d6da9-5950-456a-a744-f557c7d96ec6
+
+
+
+<br/>
+
+[![Watch Full Walkthrough on YouTube](https://img.shields.io/badge/▶_Watch_Full_1080p60_Walkthrough_(YouTube)-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/0UF4JgnmhEs)
+[![Watch Original 171MB Master on Google Drive](https://img.shields.io/badge/☁️_Watch_Uncompressed_Master_(Google_Drive)-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/12CL2u1S50D5kK0wzWIZKmjaskMOYw788/view?usp=sharing)
+
+</div>
+
+---
+
 
 ## 💡 Overview
 
