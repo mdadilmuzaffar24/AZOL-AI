@@ -1,7 +1,7 @@
-import os
+﻿import os
 import logging
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from app.core.vector_store import get_embeddings as _core_get_embeddings
 from langchain_community.vectorstores import FAISS
 
 logger = logging.getLogger(__name__)
@@ -11,7 +11,7 @@ BASE_VECTOR_STORE_DIR = os.path.join(os.getcwd(), "vector_store")
 
 def get_embeddings_model():
     """Initializes the local open-source BAAI embedding model."""
-    return HuggingFaceEmbeddings(model_name="BAAI/bge-small-en-v1.5")
+    return _core_get_embeddings()
 
 def _get_user_vector_path(user_id: str) -> str:
     """
