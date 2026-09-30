@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import {
   ArrowRight, Play, CheckCircle2, Globe, FileText,
   Terminal, Sparkles, Table, ExternalLink, ShieldCheck,
-  Database, BarChart3, TrendingUp, MessageSquare, Send
+  Database, BarChart3, TrendingUp, MessageSquare, Send,
+  Cpu, Layers, RotateCcw, Box
 } from 'lucide-react';
 
 // ==========================================
@@ -343,7 +344,6 @@ const Azol3DCore = ({ activeAgentIndex, setActiveAgentIndex }) => {
       ctx.arc(cx, cy, 205, 0, Math.PI * 2);
       ctx.fill();
 
-      // Concentric Meridian Rings
       ctx.save();
       ctx.translate(cx, cy);
       ctx.strokeStyle = 'rgba(124, 108, 255, 0.22)';
@@ -393,7 +393,6 @@ const Azol3DCore = ({ activeAgentIndex, setActiveAgentIndex }) => {
         ctx.fill();
       });
 
-      // 3D Geodesic Sphere
       const cosY = Math.cos(rotation);
       const sinY = Math.sin(rotation);
       const cosX = Math.cos(0.36);
@@ -460,13 +459,11 @@ const Azol3DCore = ({ activeAgentIndex, setActiveAgentIndex }) => {
       >
         <canvas ref={canvasRef} width={520} height={520} className="w-[350px] h-[350px] sm:w-[500px] sm:h-[500px]" />
 
-        {/* Central Meridian Classic Mark — Locked to Exact Geometric Center (50%, 50%) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="relative flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-[#07090D] border border-[#232838] flex items-center justify-center shadow-[0_0_40px_rgba(99,91,255,0.4)]">
               <AzolMeridianMark size={54} variant="m1" color="#635BFF" accentColor="#20D9A0" />
             </div>
-            {/* Floating Status Pill anchored below the circle so it never shifts the logo upward */}
             <div
               style={{ borderColor: 'rgba(32, 217, 160, 0.45)', color: '#20D9A0' }}
               className="absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap px-3.5 py-1 rounded-full bg-[#0E1118]/95 border text-[11px] font-mono font-semibold shadow-lg"
@@ -476,7 +473,6 @@ const Azol3DCore = ({ activeAgentIndex, setActiveAgentIndex }) => {
           </div>
         </div>
 
-        {/* 6 Interactive Orbital Agent Nodes */}
         {ORBITAL_AGENTS.map((agent, idx) => {
           const rad = (agent.angle * Math.PI) / 180;
           const radiusPct = 39;
@@ -516,7 +512,484 @@ const Azol3DCore = ({ activeAgentIndex, setActiveAgentIndex }) => {
 };
 
 // ==========================================
-// 5. PAGE CONTENT DATA (HUMAN + TECHNICAL LAYERS)
+// 5. NEW: 3D ANIMATED & GLOWING SYSTEM ARCHITECTURE FLOWCHART
+// ==========================================
+const ARCH_SPECIALISTS = [
+  {
+    id: 'planner',
+    icon: '📐',
+    title: 'Planner Node',
+    subtitle: 'DAG Task Decomposition',
+    metric: 'StateGraph Sub-Goals',
+    color: '#7C6CFF'
+  },
+  {
+    id: 'researcher',
+    icon: '🔎',
+    title: 'Researcher Node',
+    subtitle: 'Live Web SERP + FAISS RAG',
+    metric: 'Hybrid Vector Search',
+    color: '#61D8FF'
+  },
+  {
+    id: 'analyst',
+    icon: '🧮',
+    title: 'Data Analyst Node',
+    subtitle: 'Quantitative & Python Sandbox',
+    metric: 'Isolated Execution',
+    color: '#20D9A0'
+  },
+  {
+    id: 'coding',
+    icon: '💻',
+    title: 'Coding Agent',
+    subtitle: 'Artifact & Pipeline Synthesis',
+    metric: 'AST Linted Output',
+    color: '#635BFF'
+  }
+];
+
+const ARCH_STAGE_DESCRIPTIONS = [
+  { stage: 0, label: 'STAGE 01 · OPERATOR DISPATCH', detail: 'High-level natural language goal enters the AZOL OS pipeline.' },
+  { stage: 1, label: 'STAGE 02 · ZERO-TRUST AUTH & RBAC', detail: 'Validates HttpOnly JWT session, OAuth 2.0 scope, and rate-limit buckets.' },
+  { stage: 2, label: 'STAGE 03 · SUPERVISOR ROUTING', detail: 'LangGraph Supervisor inspects context and dispatches parallel specialist nodes.' },
+  { stage: 3, label: 'STAGE 04 · PARALLEL AGENT EXECUTION', detail: 'Planner, Researcher, Data Analyst, and Coding Agent execute concurrently.' },
+  { stage: 4, label: 'STAGE 05 · QA GROUNDING & CITATION AUDIT', detail: 'QA Reviewer cross-checks every claim against FAISS chunks & live ToolMessages.' },
+  { stage: 5, label: 'STAGE 06 · HUMAN-IN-THE-LOOP CLEARANCE', detail: 'LangGraph interrupt() gate verifies safety approval before state mutation.' },
+  { stage: 6, label: 'STAGE 07 · 3-TIER MEMORY PERSISTENCE', detail: 'Synchronizes embeddings and checkpoints to FAISS, PostgreSQL, and MinIO/Redis.' },
+  { stage: 7, label: 'STAGE 08 · VERIFIED STREAMED DELIVERY', detail: 'Streams real-time SSE tokens and downloadable code/report artifacts to operator.' }
+];
+
+const Azol3DArchitectureFlow = () => {
+  const [activeTier, setActiveTier] = useState(0);
+  const [cinema3DMode, setCinema3DMode] = useState(true);
+  const [mouseTilt, setMouseTilt] = useState({ x: 0, y: 0 });
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const timer = setInterval(() => {
+      setActiveTier((prev) => (prev + 1) % 8);
+    }, 1550);
+    return () => clearInterval(timer);
+  }, [isAutoPlaying]);
+
+  const handleBoardMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10;
+    setMouseTilt({ x, y });
+  };
+
+  const getTierStyle = (tierIdx, accent = '#635BFF') => {
+    const isActive = activeTier === tierIdx;
+    const isPassed = activeTier > tierIdx;
+
+    return {
+      borderColor: isActive ? '#20D9A0' : isPassed ? accent : '#232838',
+      background: isActive
+        ? 'linear-gradient(160deg, rgba(32, 217, 160, 0.16) 0%, rgba(14, 17, 24, 0.96) 100%)'
+        : isPassed
+        ? 'linear-gradient(160deg, rgba(99, 91, 255, 0.12) 0%, rgba(14, 17, 24, 0.95) 100%)'
+        : 'rgba(14, 17, 24, 0.90)',
+      boxShadow: isActive
+        ? '0 0 35px rgba(32, 217, 160, 0.38), inset 0 0 15px rgba(32, 217, 160, 0.15)'
+        : isPassed
+        ? '0 10px 28px -10px rgba(99, 91, 255, 0.32)'
+        : '0 8px 20px -8px rgba(0, 0, 0, 0.6)',
+      transform: isActive ? 'translateZ(22px) scale(1.03)' : 'translateZ(0px) scale(1)'
+    };
+  };
+
+  const renderVerticalConnector = (fromTier, heightClass = 'h-9', label = null) => {
+    const isEnergized = activeTier >= fromTier;
+    const isCurrent = activeTier === fromTier;
+
+    return (
+      <div className={`relative flex flex-col items-center justify-center ${heightClass} w-8 select-none`}>
+        <div
+          style={{
+            background: isEnergized
+              ? 'linear-gradient(180deg, #635BFF 0%, #61D8FF 50%, #20D9A0 100%)'
+              : '#232838',
+            boxShadow: isCurrent ? '0 0 14px #20D9A0' : 'none'
+          }}
+          className="w-[2.5px] h-full rounded-full transition-all duration-500 relative overflow-hidden"
+        >
+          <motion.div
+            animate={{ y: ['-100%', '220%'] }}
+            transition={{ duration: 1.1, repeat: Infinity, ease: 'linear' }}
+            className="w-full h-5 bg-white blur-[1px]"
+          />
+        </div>
+        {label && (
+          <span className="absolute px-2.5 py-0.5 rounded-md bg-[#111522] border border-[#20D9A0]/50 text-[11px] font-mono font-bold text-[#20D9A0] shadow-md whitespace-nowrap">
+            {label}
+          </span>
+        )}
+        <div
+          style={{ borderTopColor: isEnergized ? '#20D9A0' : '#232838' }}
+          className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] -mt-0.5"
+        />
+      </div>
+    );
+  };
+
+  return (
+    <div className="w-full">
+      {/* Top Interactive Controls Bar for Screen Recording & Inspection */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 px-5 py-3.5 rounded-2xl bg-[#0E1118] border border-[#232838]">
+        <div className="flex items-center space-x-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#20D9A0] animate-ping" />
+          <span className="text-xs sm:text-sm font-mono font-bold text-[#20D9A0]">
+            {ARCH_STAGE_DESCRIPTIONS[activeTier].label}
+          </span>
+          <span className="hidden md:inline text-xs sm:text-sm text-[#9AA0B4]">
+            — {ARCH_STAGE_DESCRIPTIONS[activeTier].detail}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => setCinema3DMode(!cinema3DMode)}
+            style={{
+              borderColor: cinema3DMode ? '#61D8FF' : '#232838',
+              backgroundColor: cinema3DMode ? 'rgba(97, 216, 255, 0.12)' : '#111522'
+            }}
+            className="px-3.5 py-1.5 rounded-xl border text-xs font-mono font-semibold text-[#F4F5FA] flex items-center gap-1.5 transition-all"
+          >
+            <Box className="w-3.5 h-3.5 text-[#61D8FF]" />
+            <span>{cinema3DMode ? '3D Isometric Glow: ON' : 'Flat 2D View'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTier(0);
+              setIsAutoPlaying(true);
+            }}
+            className="px-3.5 py-1.5 rounded-xl bg-[#635BFF]/20 hover:bg-[#635BFF]/30 border border-[#635BFF] text-xs font-mono font-semibold text-white flex items-center gap-1.5 transition-all"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-[#20D9A0]" />
+            <span>Replay Signal Wave</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 3D Interactive Stage Container */}
+      <div
+        onMouseMove={handleBoardMove}
+        onMouseLeave={() => setMouseTilt({ x: 0, y: 0 })}
+        style={{ perspective: '1500px' }}
+        className="relative w-full py-4 select-none"
+      >
+        <motion.div
+          animate={{
+            rotateX: cinema3DMode ? 9 + mouseTilt.y * 0.45 : mouseTilt.y * 0.3,
+            rotateY: cinema3DMode ? mouseTilt.x * 0.55 : mouseTilt.x * 0.3
+          }}
+          transition={{ type: 'spring', stiffness: 110, damping: 20 }}
+          style={{ transformStyle: 'preserve-3d' }}
+          className="relative w-full rounded-[32px] p-6 sm:p-10 bg-gradient-to-b from-[#0E121D]/95 via-[#090C14]/98 to-[#0B0E17]/95 border border-[#232838] shadow-[0_30px_90px_-20px_rgba(99,91,255,0.28)] overflow-hidden"
+        >
+          {/* Subtle 3D Cyber Grid Floor & Radial Aura */}
+          <div
+            className="absolute inset-0 pointer-events-none opacity-[0.07]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, #61D8FF 1px, transparent 1px), linear-gradient(to bottom, #635BFF 1px, transparent 1px)',
+              backgroundSize: '44px 44px'
+            }}
+          />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[620px] rounded-full blur-[150px] pointer-events-none opacity-25"
+            style={{ background: 'radial-gradient(circle, #635BFF 0%, #20D9A0 55%, transparent 75%)' }}
+          />
+
+          <div className="relative z-10 flex flex-col items-center">
+            {/* =========================================
+                TIER 0: OPERATOR GOAL (PILL NODE)
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(0)}
+              style={getTierStyle(0, '#61D8FF')}
+              className="cursor-pointer px-7 py-3 rounded-full border-2 transition-all duration-300 flex items-center space-x-3"
+            >
+              <span className="text-lg">👤</span>
+              <span className="text-sm sm:text-base font-bold tracking-wide text-[#F4F5FA]">
+                Operator Goal
+              </span>
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[#635BFF]/25 text-[#61D8FF] border border-[#61D8FF]/30">
+                Input
+              </span>
+            </div>
+
+            {renderVerticalConnector(0, 'h-8')}
+
+            {/* =========================================
+                TIER 1: VERIFIED AUTH & RBAC GATE
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(1)}
+              style={getTierStyle(1, '#635BFF')}
+              className="cursor-pointer w-full max-w-[330px] px-6 py-3.5 rounded-2xl border-2 transition-all duration-300 text-center"
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-base">🔐</span>
+                <span className="text-sm sm:text-base font-bold text-[#F4F5FA]">
+                  Verified Auth & RBAC Gate
+                </span>
+              </div>
+              <p className="text-[11px] font-mono text-[#9AA0B4] mt-1">
+                OAuth 2.0 · SMTP 6-Digit OTP · HttpOnly JWT
+              </p>
+            </div>
+
+            {renderVerticalConnector(1, 'h-8')}
+
+            {/* =========================================
+                TIER 2: SUPERVISOR ROUTER NODE
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(2)}
+              style={getTierStyle(2, '#7C6CFF')}
+              className="cursor-pointer w-full max-w-[360px] px-6 py-4 rounded-2xl border-2 transition-all duration-300 text-center relative"
+            >
+              <div className="flex items-center justify-center space-x-2.5">
+                <AzolMeridianMark size={22} variant="m1" color="#635BFF" accentColor="#20D9A0" />
+                <span className="text-base sm:text-lg font-bold text-white">
+                  🧠 Supervisor Router Node
+                </span>
+              </div>
+              <p className="text-xs font-mono text-[#61D8FF] mt-1">
+                LangGraph StateGraph · Dynamic Tool & Agent Dispatcher
+              </p>
+            </div>
+
+            {/* =========================================
+                SVG 1-TO-4 PARALLEL FAN-OUT CONDUITS (DESKTOP)
+               ========================================= */}
+            <div className="hidden lg:block w-full max-w-5xl h-16 relative pointer-events-none">
+              <svg viewBox="0 0 1000 70" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="azolFanOutGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#7C6CFF" />
+                    <stop offset="50%" stopColor="#61D8FF" />
+                    <stop offset="100%" stopColor="#20D9A0" />
+                  </linearGradient>
+                </defs>
+                {[125, 375, 625, 875].map((targetX, i) => {
+                  const pathD = `M 500 0 C 500 36, ${targetX} 28, ${targetX} 68`;
+                  const active = activeTier >= 3;
+                  return (
+                    <g key={i}>
+                      <path
+                        d={pathD}
+                        fill="none"
+                        stroke={active ? 'url(#azolFanOutGrad)' : '#232838'}
+                        strokeWidth={active ? '2.4' : '1.5'}
+                        opacity={active ? 0.9 : 0.55}
+                      />
+                      {active && (
+                        <motion.path
+                          d={pathD}
+                          fill="none"
+                          stroke="#20D9A0"
+                          strokeWidth="3.2"
+                          strokeDasharray="10 160"
+                          animate={{ strokeDashoffset: [170, 0] }}
+                          transition={{ duration: 1.3, repeat: Infinity, ease: 'linear', delay: i * 0.12 }}
+                        />
+                      )}
+                      <polygon
+                        points={`${targetX - 5},62 ${targetX + 5},62 ${targetX},70`}
+                        fill={active ? '#20D9A0' : '#232838'}
+                      />
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+
+            <div className="lg:hidden">{renderVerticalConnector(2, 'h-7')}</div>
+
+            {/* =========================================
+                TIER 3: 4 PARALLEL SPECIALIST AGENT NODES
+               ========================================= */}
+            <div className="w-full max-w-5xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {ARCH_SPECIALISTS.map((node) => {
+                const isActive = activeTier === 3;
+                const isPassed = activeTier > 3;
+                return (
+                  <motion.div
+                    key={node.id}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    onClick={() => setActiveTier(3)}
+                    style={{
+                      borderColor: isActive ? '#20D9A0' : isPassed ? node.color : '#232838',
+                      background: isActive
+                        ? 'linear-gradient(160deg, rgba(32, 217, 160, 0.16) 0%, rgba(14, 17, 24, 0.96) 100%)'
+                        : 'rgba(16, 20, 31, 0.92)',
+                      boxShadow: isActive
+                        ? `0 0 30px ${node.color}55`
+                        : isPassed
+                        ? `0 8px 24px -10px ${node.color}40`
+                        : 'none'
+                    }}
+                    className="cursor-pointer p-4 rounded-2xl border-2 text-center transition-all duration-300 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-center space-x-2 mb-1">
+                        <span className="text-lg">{node.icon}</span>
+                        <h4 className="text-sm sm:text-[15px] font-bold text-[#F4F5FA]">{node.title}</h4>
+                      </div>
+                      <p className="text-xs text-[#9AA0B4] font-medium leading-snug">{node.subtitle}</p>
+                    </div>
+                    <div className="mt-3 pt-2 border-t border-[#232838] flex items-center justify-between text-[10px] font-mono">
+                      <span style={{ color: node.color }}>{node.metric}</span>
+                      <span
+                        className={`w-2 h-2 rounded-full ${
+                          isActive ? 'bg-[#20D9A0] animate-ping' : isPassed ? 'bg-[#20D9A0]' : 'bg-slate-600'
+                        }`}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* =========================================
+                SVG 4-TO-1 CONVERGENCE CONDUITS INTO QA REVIEWER
+               ========================================= */}
+            <div className="hidden lg:block w-full max-w-5xl h-16 relative pointer-events-none">
+              <svg viewBox="0 0 1000 70" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+                {[125, 375, 625, 875].map((sourceX, i) => {
+                  const pathD = `M ${sourceX} 0 C ${sourceX} 42, 500 28, 500 66`;
+                  const active = activeTier >= 4;
+                  return (
+                    <g key={i}>
+                      <path
+                        d={pathD}
+                        fill="none"
+                        stroke={active ? 'url(#azolFanOutGrad)' : '#232838'}
+                        strokeWidth={active ? '2.4' : '1.5'}
+                        opacity={active ? 0.9 : 0.55}
+                      />
+                      {active && (
+                        <motion.path
+                          d={pathD}
+                          fill="none"
+                          stroke="#61D8FF"
+                          strokeWidth="3.2"
+                          strokeDasharray="10 160"
+                          animate={{ strokeDashoffset: [170, 0] }}
+                          transition={{ duration: 1.3, repeat: Infinity, ease: 'linear', delay: i * 0.12 }}
+                        />
+                      )}
+                    </g>
+                  );
+                })}
+                <polygon
+                  points="494,60 506,60 500,70"
+                  fill={activeTier >= 4 ? '#20D9A0' : '#232838'}
+                />
+              </svg>
+            </div>
+
+            <div className="lg:hidden">{renderVerticalConnector(3, 'h-7')}</div>
+
+            {/* =========================================
+                TIER 4: QA REVIEWER NODE
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(4)}
+              style={getTierStyle(4, '#61D8FF')}
+              className="cursor-pointer w-full max-w-[360px] px-6 py-4 rounded-2xl border-2 transition-all duration-300 text-center"
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <span className="text-base">🛡️</span>
+                <span className="text-base sm:text-lg font-bold text-[#F4F5FA]">
+                  QA Reviewer Node
+                </span>
+              </div>
+              <p className="text-xs font-mono text-[#20D9A0] mt-1">
+                Grounding & Citation Audit · ToolMessage Inspector
+              </p>
+            </div>
+
+            {renderVerticalConnector(4, 'h-9')}
+
+            {/* =========================================
+                TIER 5: HUMAN-IN-THE-LOOP CLEARANCE GATE (3D DIAMOND)
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(5)}
+              className="relative my-3 flex items-center justify-center cursor-pointer"
+            >
+              <div
+                style={getTierStyle(5, '#f59e0b')}
+                className="w-40 h-40 sm:w-44 sm:h-44 rotate-45 rounded-3xl border-2 transition-all duration-300 flex items-center justify-center"
+              >
+                <div className="-rotate-45 text-center px-3">
+                  <span className="text-xl block mb-1">🔒</span>
+                  <p className="text-xs sm:text-sm font-bold text-[#F4F5FA] leading-tight">
+                    Human-in-the-Loop
+                  </p>
+                  <p className="text-[11px] font-mono text-[#61D8FF] mt-0.5">Clearance Gate</p>
+                </div>
+              </div>
+            </div>
+
+            {renderVerticalConnector(5, 'h-12', 'Approved / Safe')}
+
+            {/* =========================================
+                TIER 6: 3-TIER MEMORY (3D DATABASE CYLINDER)
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(6)}
+              style={getTierStyle(6, '#635BFF')}
+              className="cursor-pointer w-full max-w-[340px] rounded-[28px] border-2 transition-all duration-300 overflow-hidden text-center"
+            >
+              {/* Top 3D Cylinder Rim */}
+              <div className="h-4 w-full bg-gradient-to-r from-[#635BFF]/30 via-[#61D8FF]/40 to-[#20D9A0]/30 border-b border-[#232838] rounded-b-[50%]" />
+              <div className="px-6 py-4">
+                <div className="flex items-center justify-center space-x-2">
+                  <span className="text-base">💾</span>
+                  <span className="text-base font-bold text-[#F4F5FA]">3-Tier Memory</span>
+                </div>
+                <p className="text-xs font-mono text-[#61D8FF] mt-1">
+                  FAISS + PostgreSQL + MinIO/Redis
+                </p>
+              </div>
+              <div className="h-2.5 w-full bg-[#111522] border-t border-[#232838]" />
+            </div>
+
+            {renderVerticalConnector(6, 'h-8')}
+
+            {/* =========================================
+                TIER 7: VERIFIED STREAMED OUTPUT & ARTIFACTS (PILL)
+               ========================================= */}
+            <div
+              onClick={() => setActiveTier(7)}
+              style={getTierStyle(7, '#20D9A0')}
+              className="cursor-pointer px-8 py-3.5 rounded-full border-2 transition-all duration-300 flex items-center space-x-3"
+            >
+              <span className="text-lg">✅</span>
+              <span className="text-sm sm:text-base font-bold text-[#F4F5FA]">
+                Verified Streamed Output & Artifacts
+              </span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#20D9A0] animate-ping" />
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
+// 6. PAGE CONTENT DATA (HUMAN + TECHNICAL LAYERS)
 // ==========================================
 const LIVE_GOALS = [
   {
@@ -877,12 +1350,18 @@ export default function LandingPage({ onOpenAuth }) {
             <AzolWordmarkLockup iconSize={34} fontSize="21px" showBadge />
           </div>
 
-          <nav className="hidden lg:flex items-center space-x-8 text-[15px] font-medium text-[#9AA0B4]">
+          <nav className="hidden lg:flex items-center space-x-7 text-[15px] font-medium text-[#9AA0B4]">
             <button onClick={() => scrollTo('why-azol')} className="hover:text-[#F4F5FA] transition-colors">
               Why AZOL
             </button>
             <button onClick={() => scrollTo('watch-azol-work')} className="hover:text-[#F4F5FA] transition-colors">
               Watch It Work
+            </button>
+            <button
+              onClick={() => scrollTo('architecture-topology')}
+              className="text-[#20D9A0] hover:text-[#61D8FF] transition-colors font-semibold"
+            >
+              3D Architecture
             </button>
             <button onClick={() => scrollTo('v1-capabilities')} className="hover:text-[#F4F5FA] transition-colors">
               V1.0 Workspace
@@ -940,7 +1419,6 @@ export default function LandingPage({ onOpenAuth }) {
          ========================================================= */}
       <section className="relative pt-14 pb-24 sm:pt-20 sm:pb-28 px-4 sm:px-8 z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Hero Copy */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -996,15 +1474,14 @@ export default function LandingPage({ onOpenAuth }) {
               </button>
 
               <button
-                onClick={() => scrollTo('watch-azol-work')}
+                onClick={() => scrollTo('architecture-topology')}
                 className="flex items-center px-7 py-4 bg-[#0E1118] hover:bg-[#141824] text-[#F4F5FA] border border-[#232838] hover:border-[#635BFF] text-base font-medium rounded-2xl hover:-translate-y-0.5 transition-all"
               >
                 <Play className="w-4 h-4 mr-2.5 text-[#20D9A0] fill-[#20D9A0]/20" />
-                <span>Watch AZOL AI Work</span>
+                <span>Explore 3D Architecture</span>
               </button>
             </motion.div>
 
-            {/* Execution Pipeline Strip */}
             <motion.div variants={itemReveal} className="mt-11 pt-7 border-t border-[#1E2330]">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9AA0B4] mb-3">
                 Autonomous End-to-End Execution Pipeline
@@ -1022,7 +1499,6 @@ export default function LandingPage({ onOpenAuth }) {
             </motion.div>
           </motion.div>
 
-          {/* Right 3D AZOL Core + Dead-Centered Meridian Star */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -1069,7 +1545,6 @@ export default function LandingPage({ onOpenAuth }) {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-            {/* Left: Without AZOL */}
             <motion.div
               variants={itemReveal}
               whileHover={{ y: -5 }}
@@ -1102,7 +1577,6 @@ export default function LandingPage({ onOpenAuth }) {
               </div>
             </motion.div>
 
-            {/* Right: With AZOL AI */}
             <motion.div
               variants={itemReveal}
               whileHover={{ y: -5 }}
@@ -1171,7 +1645,6 @@ export default function LandingPage({ onOpenAuth }) {
             </p>
           </motion.div>
 
-          {/* Scenario Tabs */}
           <motion.div variants={itemReveal} className="flex flex-wrap items-center justify-center gap-3 mb-8">
             {LIVE_GOALS.map((item, idx) => (
               <button
@@ -1196,7 +1669,6 @@ export default function LandingPage({ onOpenAuth }) {
             </button>
           </motion.div>
 
-          {/* Console Window */}
           <motion.div
             variants={itemReveal}
             className="bg-[#0B0E15] border border-[#232838] rounded-3xl overflow-hidden shadow-2xl"
@@ -1289,6 +1761,40 @@ export default function LandingPage({ onOpenAuth }) {
                 </div>
               </div>
             </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* =========================================================
+          04.5 NEW: 3D ANIMATED SYSTEM ARCHITECTURE & AGENT TOPOLOGY
+         ========================================================= */}
+      <motion.section
+        id="architecture-topology"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.12 }}
+        variants={sectionReveal}
+        className="relative z-10 py-24 px-4 sm:px-8 border-t border-[#1E2330] bg-[#080B12]/90"
+      >
+        <div className="max-w-6xl mx-auto">
+          <motion.div variants={itemReveal} className="text-center max-w-3xl mx-auto mb-12">
+            <span className="px-3.5 py-1 rounded-full bg-[#635BFF]/15 border border-[#635BFF]/40 text-[#61D8FF] text-xs font-mono font-semibold uppercase tracking-widest">
+              📐 System Architecture & Agent Topology
+            </span>
+            <h2
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
+              className="text-4xl sm:text-5xl lg:text-[56px] font-medium text-[#F4F5FA] mt-3 leading-tight"
+            >
+              Inside the Autonomous StateGraph
+            </h2>
+            <p className="text-base sm:text-[18.5px] text-[#9AA0B4] mt-3 leading-relaxed">
+              Every goal flows through an 8-tier defense-in-depth architecture — from verified authentication and
+              4-way parallel specialist execution to human clearance gates and 3-tier vector memory.
+            </p>
+          </motion.div>
+
+          <motion.div variants={itemReveal}>
+            <Azol3DArchitectureFlow />
           </motion.div>
         </div>
       </motion.section>
@@ -1520,7 +2026,6 @@ export default function LandingPage({ onOpenAuth }) {
             </p>
           </motion.div>
 
-          {/* V2.0 Visual Pipeline */}
           <motion.div
             variants={itemReveal}
             className="flex flex-wrap items-center justify-center gap-2.5 p-5 bg-[#0E1118] border border-[#232838] rounded-2xl mb-10 text-sm font-semibold"
@@ -1540,7 +2045,6 @@ export default function LandingPage({ onOpenAuth }) {
             </span>
           </motion.div>
 
-          {/* Interactive V2.0 BI Dashboard Simulator (With Live Hybrid Chart + Analyst Chat) */}
           <motion.div
             variants={itemReveal}
             className="bg-[#0E1118] border border-[#232838] rounded-3xl p-6 sm:p-9 shadow-2xl mb-16"
@@ -1576,7 +2080,6 @@ export default function LandingPage({ onOpenAuth }) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 items-stretch">
-              {/* Left Column: NL Query + Generated SQL + AI Root-Cause */}
               <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
                 <div className="p-5 bg-[#111522] border border-[#232838] rounded-2xl">
                   <span className="text-xs font-mono text-[#9AA0B4] uppercase block mb-1">
@@ -1600,9 +2103,7 @@ export default function LandingPage({ onOpenAuth }) {
                 </div>
               </div>
 
-              {/* Right Column: Live KPI Cards + Hybrid Bar/Area Chart + AI Analyst Chat Bar */}
               <div className="lg:col-span-7 p-6 bg-[#07090D] border border-[#232838] rounded-2xl flex flex-col justify-between space-y-5">
-                {/* 3 KPI Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   {currentV2.kpis.map((k) => (
                     <div key={k.label} className="p-4 bg-[#0E1118] border border-[#1E2330] rounded-xl">
@@ -1615,7 +2116,6 @@ export default function LandingPage({ onOpenAuth }) {
                   ))}
                 </div>
 
-                {/* Hybrid SVG Trend Curve + Interactive Bar Chart */}
                 <div className="p-5 bg-[#0E1118] border border-[#1E2330] rounded-xl">
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm font-mono text-[#9AA0B4] mb-4">
                     <div className="flex items-center space-x-2">
@@ -1632,9 +2132,7 @@ export default function LandingPage({ onOpenAuth }) {
                     </div>
                   </div>
 
-                  {/* Chart Canvas with Horizontal Grid Lines, SVG Curve Overlay & Explicit Height Bars */}
                   <div className="relative h-44 w-full pt-4 pb-6 px-2">
-                    {/* Subtle Horizontal Grid Lines & Target Threshold */}
                     <div className="absolute inset-x-2 top-4 bottom-6 flex flex-col justify-between pointer-events-none">
                       <div className="border-b border-dashed border-[#232838]/80 w-full flex justify-end">
                         <span className="text-[10px] font-mono text-[#20D9A0] -mt-4 bg-[#0E1118] px-1.5">
@@ -1646,7 +2144,6 @@ export default function LandingPage({ onOpenAuth }) {
                       <div className="border-b border-[#1E2330] w-full" />
                     </div>
 
-                    {/* SVG Area & Smooth Trend Line Overlay */}
                     <svg
                       viewBox="0 0 536 140"
                       preserveAspectRatio="none"
@@ -1672,7 +2169,6 @@ export default function LandingPage({ onOpenAuth }) {
                       />
                     </svg>
 
-                    {/* 7 Interactive Bar Columns with Explicit h-full justify-end */}
                     <div className="relative z-20 h-full w-full flex items-end justify-between gap-3 sm:gap-4">
                       {currentV2.bars.map((barObj, idx) => {
                         const isHovered = hoveredBarIdx === idx;
@@ -1683,7 +2179,6 @@ export default function LandingPage({ onOpenAuth }) {
                             onMouseLeave={() => setHoveredBarIdx(null)}
                             className="flex-1 h-full flex flex-col items-center justify-end group cursor-pointer"
                           >
-                            {/* Top Value Label */}
                             <span
                               className={`text-[10px] sm:text-[11px] font-mono mb-1.5 transition-colors ${
                                 isHovered || idx === 6 ? 'text-[#20D9A0] font-bold' : 'text-[#9AA0B4]'
@@ -1692,7 +2187,6 @@ export default function LandingPage({ onOpenAuth }) {
                               {barObj.val}
                             </span>
 
-                            {/* Animated Bar */}
                             <div className="w-full max-w-[42px] h-[108px] flex items-end bg-[#141826]/60 rounded-t-lg p-0.5">
                               <motion.div
                                 key={`${v2QueryIdx}-${idx}`}
@@ -1709,7 +2203,6 @@ export default function LandingPage({ onOpenAuth }) {
                               />
                             </div>
 
-                            {/* Week Label */}
                             <span className="text-xs font-mono text-[#9AA0B4] mt-2">{barObj.week}</span>
                           </div>
                         );
@@ -1718,7 +2211,6 @@ export default function LandingPage({ onOpenAuth }) {
                   </div>
                 </div>
 
-                {/* Live AI Analyst Follow-Up Chat Strip */}
                 <div className="px-4 py-3 bg-[#111522] border border-[#232838] rounded-xl flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center space-x-2.5 text-xs sm:text-sm">
                     <span className="w-6 h-6 rounded-lg bg-[#635BFF]/20 border border-[#635BFF]/40 flex items-center justify-center text-[#61D8FF] font-mono text-xs font-bold shrink-0">
@@ -1738,7 +2230,6 @@ export default function LandingPage({ onOpenAuth }) {
             </div>
           </motion.div>
 
-          {/* The AZOL Evolution (V1.0 -> V2.0 -> V3.0) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div variants={itemReveal} className="p-7 bg-[#0E1118] border border-[#20D9A0]/50 rounded-3xl">
               <span className="px-3 py-1 rounded-full bg-[#20D9A0]/15 text-[#20D9A0] text-xs font-semibold">
@@ -1844,7 +2335,6 @@ export default function LandingPage({ onOpenAuth }) {
           </div>
         </motion.div>
 
-        {/* Official Footer + Meridian Creator Signature Card */}
         <footer className="max-w-7xl mx-auto pt-8 border-t border-[#232838]">
           <div className="flex flex-col xl:flex-row items-center justify-between gap-8 pb-8">
             <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
