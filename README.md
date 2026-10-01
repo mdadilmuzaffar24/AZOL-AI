@@ -5,14 +5,31 @@
 
 **Turn complex goals into coordinated AI workflows — from planning and research to execution, verification, and persistent memory.**
 
-[![Status](https://img.shields.io/badge/AZOL_AI-V1.0_Production-20D9A0?style=for-the-badge)](#)
-[![Backend](https://img.shields.io/badge/FastAPI-Async_Engine-635BFF?style=for-the-badge&logo=fastapi&logoColor=white)](#)
+[![Live App](https://img.shields.io/badge/Live_App-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://azol-ai.vercel.app)
+[![API](https://img.shields.io/badge/API-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://azol-ai.onrender.com/docs)
+[![Database](https://img.shields.io/badge/Database-Neon_Postgres-00E599?style=for-the-badge&logo=postgresql&logoColor=black)](#)
+<br>
+[![Backend](https://img.shields.io/badge/FastAPI-Async_Engine-009688?style=for-the-badge&logo=fastapi&logoColor=white)](#)
 [![Orchestration](https://img.shields.io/badge/LangGraph-StateGraph-7C6CFF?style=for-the-badge)](#)
-[![Memory](https://img.shields.io/badge/FAISS_%2B_PostgreSQL-3--Tier_Memory-61D8FF?style=for-the-badge&logo=postgresql&logoColor=white)](#)
 [![Frontend](https://img.shields.io/badge/React_18-Tailwind_%2B_Framer-0E1118?style=for-the-badge&logo=react&logoColor=61D8FF)](#)
-[**🎥 Watch Full 1080p60 Walkthrough (YouTube)**](https://youtu.be/0UF4JgnmhEs) · [**☁️ High-Bitrate Master (Google Drive)**](https://drive.google.com/file/d/12CL2u1S50D5kK0wzWIZKmjaskMOYw788/view?usp=sharing) · [**🌐 Creator Portfolio**](https://md-adil-muzaffar-portfolia.lovable.app)
+
+[**🌐 Launch Live Application**](https://azol-ai.vercel.app) · [**🎥 Watch 1080p60 Walkthrough**](https://youtu.be/0UF4JgnmhEs) · [**👨‍💻 Architect Portfolio**](https://md-adil-muzaffar-portfolia.lovable.app)
 
 </div>
+
+
+---
+
+## ☁️ Production Cloud Architecture (Live Today)
+
+AZOL AI is deployed across a highly scalable, distributed serverless cloud infrastructure:
+
+*   **🌐 Edge Frontend (Vercel):** Lightning-fast React + Vite SPA with 3D canvas acceleration, deployed to Vercel's global CDN.
+*   **⚙️ Core API Engine (Render):** Python FastAPI backend utilizing `uvicorn` and AsyncIO to handle concurrent LangGraph state executions and SSE token streaming.
+*   **🗄️ Serverless Database (Neon Tech):** PostgreSQL connection pooling via `asyncpg` for sub-millisecond querying, strict tenant isolation, and JWT revocation indexing.
+*   **🔒 Secure Communications:** Built-in SMTP configuration with IPv4 network socket fail-safes for transactional email delivery and 6-digit OTP authentication.
+
+---
 
 ---
 ## 🎥 Live Product Walkthrough
