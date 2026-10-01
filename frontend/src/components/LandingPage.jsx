@@ -2338,38 +2338,46 @@ export default function LandingPage({ onOpenAuth }) {
         {/* Production Infrastructure Section */}
         <div className="w-full py-16 bg-[#0B0F19] border-t border-[#232838]">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <p className="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-8">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-10">
               Production Infrastructure Powered By
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-12 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="flex flex-wrap justify-center items-center gap-10 sm:gap-16">
               
               {/* Vercel */}
-              <div className="flex items-center gap-2">
-                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" 
+                 className="flex items-center gap-3 text-slate-500 hover:text-white hover:scale-110 transition-all duration-300">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M24 22.525H0l12-21.05 12 21.05z" />
                 </svg>
-                <span className="text-xl font-bold text-white tracking-tight">Vercel</span>
-              </div>
+                <span className="text-2xl font-bold tracking-tight">Vercel</span>
+              </a>
 
               {/* Render */}
-              <div className="flex items-center gap-2">
-                 <div className="w-8 h-8 rounded bg-[#46E3B7] flex items-center justify-center text-black font-bold text-lg">R</div>
-                <span className="text-xl font-bold text-white tracking-tight">Render</span>
-              </div>
+              <a href="https://render.com" target="_blank" rel="noopener noreferrer" 
+                 className="flex items-center gap-3 text-slate-500 hover:text-[#46E3B7] hover:scale-110 transition-all duration-300">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.624 10.155l-9.28-5.22a2.697 2.697 0 0 0-2.668 0l-9.302 5.22a2.698 2.698 0 0 0-1.374 2.348v10.444c0 1.002.544 1.914 1.412 2.392l9.28 5.22a2.697 2.697 0 0 0 2.668 0l9.302-5.22a2.698 2.698 0 0 0 1.374-2.348V12.503c0-1.002-.544-1.914-1.412-2.392V10.155zM12 22.753v-5.278l4.576-2.574-4.576-2.574V7.05L21.152 12.2z"/>
+                </svg>
+                <span className="text-2xl font-bold tracking-tight">Render</span>
+              </a>
 
-              {/* Neon Postgres */}
-              <div className="flex items-center gap-2">
-                 <div className="w-8 h-8 rounded-full bg-[#00E599] flex items-center justify-center">
-                    <div className="w-4 h-4 bg-black rounded-sm transform rotate-45"></div>
-                 </div>
-                <span className="text-xl font-bold text-white tracking-tight">Neon</span>
-              </div>
+              {/* Neon Tech */}
+              <a href="https://neon.tech" target="_blank" rel="noopener noreferrer" 
+                 className="flex items-center gap-3 text-slate-500 hover:text-[#00E599] hover:scale-110 transition-all duration-300">
+                <svg className="w-9 h-9" viewBox="0 0 24 24" fill="currentColor">
+                   <path d="M11 2L2 7v10l9 5 9-5V7l-9-5zm0 3.2l6.2 3.4v6.8L11 18.8l-6.2-3.4V8.6L11 5.2zm-2.5 4.5v5.5h1.5v-3.5h2v3.5h1.5v-5.5h-5z"/>
+                </svg>
+                <span className="text-2xl font-bold tracking-tight">Neon</span>
+              </a>
 
               {/* FastAPI */}
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#009688] flex items-center justify-center text-white text-xs font-bold">API</div>
-                <span className="text-xl font-bold text-white tracking-tight">FastAPI</span>
-              </div>
+              <a href="https://fastapi.tiangolo.com" target="_blank" rel="noopener noreferrer" 
+                 className="flex items-center gap-3 text-slate-500 hover:text-[#009688] hover:scale-110 transition-all duration-300">
+                <svg className="w-9 h-9" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.85-15L7 13h3.5v4L15.5 11H12V7z"/>
+                </svg>
+                <span className="text-2xl font-bold tracking-tight">FastAPI</span>
+              </a>
 
             </div>
           </div>
