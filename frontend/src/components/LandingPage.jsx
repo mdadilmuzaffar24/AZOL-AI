@@ -2335,6 +2335,46 @@ export default function LandingPage({ onOpenAuth }) {
           </div>
         </motion.div>
 
+        {/* Production Infrastructure Section */}
+        <div className="w-full py-16 bg-[#0B0F19] border-t border-[#232838]">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <p className="text-center text-sm font-semibold uppercase tracking-widest text-slate-500 mb-8">
+              Production Infrastructure Powered By
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-12 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+              
+              {/* Vercel */}
+              <div className="flex items-center gap-2">
+                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 22.525H0l12-21.05 12 21.05z" />
+                </svg>
+                <span className="text-xl font-bold text-white tracking-tight">Vercel</span>
+              </div>
+
+              {/* Render */}
+              <div className="flex items-center gap-2">
+                 <div className="w-8 h-8 rounded bg-[#46E3B7] flex items-center justify-center text-black font-bold text-lg">R</div>
+                <span className="text-xl font-bold text-white tracking-tight">Render</span>
+              </div>
+
+              {/* Neon Postgres */}
+              <div className="flex items-center gap-2">
+                 <div className="w-8 h-8 rounded-full bg-[#00E599] flex items-center justify-center">
+                    <div className="w-4 h-4 bg-black rounded-sm transform rotate-45"></div>
+                 </div>
+                <span className="text-xl font-bold text-white tracking-tight">Neon</span>
+              </div>
+
+              {/* FastAPI */}
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-[#009688] flex items-center justify-center text-white text-xs font-bold">API</div>
+                <span className="text-xl font-bold text-white tracking-tight">FastAPI</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <footer className="max-w-7xl mx-auto pt-8 border-t border-[#232838]">
           <div className="flex flex-col xl:flex-row items-center justify-between gap-8 pb-8">
             <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
