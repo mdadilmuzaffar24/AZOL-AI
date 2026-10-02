@@ -13,7 +13,7 @@
 [![Orchestration](https://img.shields.io/badge/LangGraph-StateGraph-7C6CFF?style=for-the-badge)](#)
 [![Frontend](https://img.shields.io/badge/React_18-Tailwind_%2B_Framer-0E1118?style=for-the-badge&logo=react&logoColor=61D8FF)](#)
 
-[**🌐 Launch Live Application**](https://azol-ai.vercel.app) · [**🎥 Watch 1080p60 Walkthrough**](https://youtu.be/0UF4JgnmhEs) · [**👨‍💻 Architect Portfolio**](https://md-adil-muzaffar-portfolia.lovable.app)
+[**🌐 Launch Live Application**](https://azol-ai.vercel.app) · [**🎥 Watch 1080p60 Walkthrough**]([https://youtu.be/0UF4JgnmhEs](https://youtu.be/uZxzoWZYv9A)) · [**👨‍💻 Architect Portfolio**](https://md-adil-muzaffar-portfolia.lovable.app)
 
 </div>
 
